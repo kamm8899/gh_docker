@@ -13,19 +13,21 @@ jobs:
     runs-on: ubuntu-latest
     #need to add container, and add name of image like node
     #can use a service container with just a runner like ubuntu
-    container: node:16
+    #container: node:16
     #added env that is needed by container, if its needed would be in the image documentation
     env:
       MONGODB_CONNECTION_PROTOCOL: mongodb
       #only works if run in a container
-      MONGODB_CLUSTER_ADDRESS: mongo
-      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
-      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+      MONGODB_CLUSTER_ADDRESS: 127.0.0.1:27017
+      MONGODB_USERNAME: root
+      MONGODB_PASSWORD: example
       PORT: 8080
     services: 
     #could be anything does not need to be mongodb
       mongodb:
         image: mongo
+        ports:
+          -27017:27017
         env: 
         MONGO_INTERDB_ROOT_USERNAME: root
         MONGO_INITDB_ROOT_PASSWORD: example
